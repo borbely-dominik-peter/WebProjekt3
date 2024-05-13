@@ -1,1 +1,33 @@
+#Main{
+    height: 100%;
+    box-sizing: content-box;
+}
 
+.col{
+    background-image: url("ut.png");
+}
+
+#Col1{
+    background-image: url("balut.png");
+}
+
+#MTable
+{
+    height: 98vh;
+    min-height: 500px;
+    width: 600px;
+    margin: auto auto;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    border-collapse: collapse;
+}
+
+#startText{
+    font-size: 48px;
+    color: red;
+    text-align: center !important;
+    position: absolute;
+    top: 43%;
+    left: 42%;
+}
