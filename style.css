@@ -4,18 +4,29 @@
 }
 
 .col{
-    background-image: url("ut.png");
+    background-image: url("img/ut.png");
+    width: 130px !important;
+    border: 0;
+    padding: 0;
+    margin: 0;
 }
 
-#Col1{
-    background-image: url("balut.png");
+#C-1{
+    background-image: url("img/balut.png");
+}
+
+.Car{
+    width: 80px !important;
+    margin-left: 22%;
+    position: relative;
+    top: 30vh;
 }
 
 #MTable
 {
     height: 98vh;
     min-height: 500px;
-    width: 600px;
+    width: 652px;
     margin: auto auto;
     border-width: 2px;
     border-color: black;
