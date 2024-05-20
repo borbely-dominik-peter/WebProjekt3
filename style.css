@@ -9,6 +9,8 @@
     border: 0;
     padding: 0;
     margin: 0;
+    position: relative;
+    z-index: -1;
 }
 
 #C-1{
@@ -19,15 +21,24 @@
     width: 80px !important;
     margin-left: 22%;
     position: relative;
-    top: 30vh;
+    top: 200px;
+}
+
+.obs{
+    width: 80px;
+    margin-left: 25px;
+}
+
+.obsT1{
+    bottom: 568px; /* T1 low value is 568 ,use half - 84 in CSS- */
 }
 
 #MTable
 {
-    height: 98vh;
-    min-height: 500px;
+    height: 642px;
     width: 652px;
     margin: auto auto;
+    margin-top: 8%;
     border-width: 2px;
     border-color: black;
     border-style: solid;
