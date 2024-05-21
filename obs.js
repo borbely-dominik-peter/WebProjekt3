@@ -7,13 +7,17 @@ export default class Obstacle{
         this.CurrLane = Number(data[1]);
         this.YLowPos = Number(data[2]);
         this.YHighPos = Number(data[3]);
+        this.id = -1;
     }
 
-    MoveObs(AmountMov,time) {
+    MoveObs(AmountMov) {
         this.YLowPos -= AmountMov;
         this.YHighPos -= AmountMov;
-        sleep(time);
-        this.YLowPos -= 2000; // move object off the screen
+    }
+
+    RemoveObs(){
+        this.YLowPos -= 2000;
         this.YHighPos -= 2000;
     }
+
 }
