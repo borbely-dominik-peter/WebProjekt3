@@ -13,30 +13,45 @@ const MaxLanes = 5; // amount of lanes in game
 let ObsList = []; // list storing obstacles
 let ObsListHTML = [] // obstacle HTML representations
 let GameOver = false;
+const moveCycleSpeed = 5;
+let GlobalID = 1;
 
 StartingText.addEventListener("click", () => {
     StartingText.style.display = "none";
     StartGame();
 });
 
-async function ObstacleGen() {
-    while (!GameOver) { // loop for making obstacles
-        GenerateObstacle();
-        await sleep(1000);
-    }
-}
-
-async function ObstacleMove() {
+async function ObstacleMaker(delay) {
     while (!GameOver) {
-        MoveObstacles(10);
-        await sleep(200);
+        let Rrow = (Math.floor(Math.random() * MaxLanes)) + 1;
+        GenerateObstacle(Rrow);
+        await sleep(delay);
     }
 }
 
-function StartGame() {
+async function MoveObstacles(amount) {
+    for (let index = 0; index < ObsList.length; index++) {
+        ObsListHTML[index].style.bottom = `${Number(ObsList[index].YHighPos) - amount}px`;
+        ObsList[index].MoveObs(amount);
+    }
+    /*HTMLLines.forEach(Column => {
+        let ChildImgs = Column.querySelectorAll(".obs");
+        ChildImgs.forEach(Cimg => {
+            let CimgId = Cimg.id;
+            for (let index = 0; index < ObsList.length; index++) {
+                if (ObsList[index].id == CimgId) {
+                    console.log("ID MATCH");
+                    Cimg.style.bottom = `${ObsList[index] - amount}px`;
+                    ObsList[index].MoveObs(amount);
+                }
+            }
+        });
+    });*/
+}
+
+async function StartGame() {
     DisplayCar(PCar.CurrLane);
     document.addEventListener("keydown", () => {
-        console.log(event);
         if (event.keyCode == 39) {
             if (!(PCar.CurrLane + 1 > MaxLanes)) {
                 PCar.CurrLane += 1;
@@ -49,8 +64,7 @@ function StartGame() {
             }
         }
     });
-    ObstacleGen();
-    ObstacleMove();
+    ObstacleMaker(1000);
 
 }
 
@@ -75,34 +89,50 @@ function DisplayCar(Lane) {
     });
 }
 
-function GenerateObstacle() {
-    let RandomRow = (Math.floor(Math.random() * MaxLanes)) + 1;
-    let NewObs = new Obstacle(`/img/akadaly.png-${RandomRow}-632-568`);
-    ObsList.push(NewObs);
+function DeSpawnObjects() {
+    HTMLLines.forEach(Column => {
+        let ChildImgs = Column.querySelectorAll(".obs");
+        ChildImgs.forEach(Cimg => {
+            if (Cimg.style.bottom[0] == "-") {
+                Column.removeChild(Cimg);
+                for (let index = 0; index < ObsList.length; index++) {
+                    if (ObsList[index].id == Cimg.id) {
+                        ObsList.splice(index,1);
+                        ObsListHTML.splice(index,1);
+                    }
+                }
+            }
+        });
+    });
+}
+
+function GenerateObstacle(row) {
+    let NewObs = new Obstacle(`/img/akadaly.png-${row}-568-605`);
+
     let NewObsHTML = document.createElement("img");
 
     HTMLLines.forEach(Column => {
-        if (Column.id == `C-${RandomRow}`) {
+        if (Column.id == `C-${row}`) {
             NewObsHTML.src = NewObs.imgSource;
             NewObsHTML.classList.add("obs");
             NewObsHTML.style.position = "absolute";
 //            NewObsHTML.classList.add("obsT1");
-            NewObsHTML.style.bottom = `${NewObs.YLowPos}px`;
-            NewObsHTML.id = `${Column.id}-`
+            NewObsHTML.style.bottom = `${NewObs.YHighPos}px`;
             Column.appendChild(NewObsHTML);
             ObsListHTML.push(NewObsHTML);
+            NewObsHTML.id = GlobalID;
+            NewObs.id = NewObsHTML.id;
+            ObsList.push(NewObs);
+            GlobalID++;
         }
     });
     console.log("OBS generated")
 }
 
+setInterval(() => {
+    MoveObstacles(3);
+}, moveCycleSpeed)
 
-
-async function MoveObstacles(amount) {
-    for (let index = 0; index < ObsList.length; index++) {
-        console.log("MOVE ACTIVE");
-        ObsList[index].YLowPos -= amount;
-        ObsList[index].YHighPos -= amount;
-        ObsListHTML[index].style.bottom -= amount;
-    }
-}
+setInterval(() => {
+    DeSpawnObjects();
+}, 350)
