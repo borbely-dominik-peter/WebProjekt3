@@ -15,6 +15,7 @@ let ObsListHTML = [] // obstacle HTML representations
 let GameOver = false;
 const moveCycleSpeed = 5;
 let GlobalID = 1;
+let score = 0;
 
 StartingText.addEventListener("click", () => {
     StartingText.style.display = "none";
@@ -29,9 +30,11 @@ async function ObstacleMaker(delay) {
     }
 }
 
+
+
 async function MoveObstacles(amount) {
     for (let index = 0; index < ObsList.length; index++) {
-        ObsListHTML[index].style.bottom = `${Number(ObsList[index].YHighPos) - amount}px`;
+        ObsListHTML[index].style.bottom = `${Number(ObsList[index].YLowPos) - amount}px`;
         ObsList[index].MoveObs(amount);
     }
     /*HTMLLines.forEach(Column => {
@@ -64,7 +67,7 @@ async function StartGame() {
             }
         }
     });
-    ObstacleMaker(1000);
+    ObstacleMaker(600);
 
 }
 
@@ -95,6 +98,7 @@ function DeSpawnObjects() {
         ChildImgs.forEach(Cimg => {
             if (Cimg.style.bottom[0] == "-") {
                 Column.removeChild(Cimg);
+                score++;
                 for (let index = 0; index < ObsList.length; index++) {
                     if (ObsList[index].id == Cimg.id) {
                         ObsList.splice(index,1);
@@ -107,7 +111,7 @@ function DeSpawnObjects() {
 }
 
 function GenerateObstacle(row) {
-    let NewObs = new Obstacle(`/img/akadaly.png-${row}-568-605`);
+    let NewObs = new Obstacle(`/img/akadaly.png-${row}-578-605`);
 
     let NewObsHTML = document.createElement("img");
 
@@ -117,7 +121,7 @@ function GenerateObstacle(row) {
             NewObsHTML.classList.add("obs");
             NewObsHTML.style.position = "absolute";
 //            NewObsHTML.classList.add("obsT1");
-            NewObsHTML.style.bottom = `${NewObs.YHighPos}px`;
+            NewObsHTML.style.bottom = `${NewObs.YLowPos}px`;
             Column.appendChild(NewObsHTML);
             ObsListHTML.push(NewObsHTML);
             NewObsHTML.id = GlobalID;
@@ -126,13 +130,45 @@ function GenerateObstacle(row) {
             GlobalID++;
         }
     });
-    console.log("OBS generated")
 }
 
-setInterval(() => {
+const MovIntV = setInterval(() => {
     MoveObstacles(3);
-}, moveCycleSpeed)
+}, moveCycleSpeed);
 
 setInterval(() => {
     DeSpawnObjects();
-}, 350)
+}, 50)
+
+const CollisionIntV = setInterval(() => {
+    ScanForCollision();
+
+}, 75);
+
+function ScanForCollision(){
+    /*ObsList.forEach(Obs => {
+        if ((Obs.CurrLane == PCar.CurrLane) && (Obs.YLowPos <= PCar.YHighPos && Obs.YHighPos >= PCar.YLowPos)) {
+            console.log(Obs.YLowPos);
+            EndGame();
+            clearInterval(CollisionIntV); 
+            return true;
+        }
+    });*/
+    for (let index = 0; index < ObsList.length; index++) {
+        if ((ObsList[index].CurrLane == PCar.CurrLane) && (ObsList[index].YLowPos <= PCar.YHighPos && ObsList[index].YHighPos >= PCar.YLowPos)) {
+            clearInterval(MovIntV);
+            console.log(ObsList[index].YLowPos);
+            console.log(ObsListHTML[index].style.bottom);
+            EndGame();
+            clearInterval(CollisionIntV); 
+            return true;
+        }   
+    }
+}
+
+function EndGame() {
+    console.log(score);
+    document.querySelector("#sc").innerHTML = score;
+    document.querySelector("#endText").style.display = "block";
+    GameOver = true;
+}
