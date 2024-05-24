@@ -8,7 +8,7 @@ import Obstacle from "./obs.js";
 /* Global value declarations */
 let StartingText = document.querySelector("#startText");
 let HTMLLines = document.querySelectorAll(".col");
-let PCar = new Car("img/auto2.png-3"); // player's car
+let PCar = null; // player's car
 const MaxLanes = 5; // amount of lanes in game
 let ObsList = []; // list storing obstacles
 let ObsListHTML = [] // obstacle HTML representations
@@ -16,6 +16,9 @@ let GameOver = false;
 const moveCycleSpeed = 5;
 let GlobalID = 1;
 let score = 0;
+let GameMusic = new Audio("/music/GameMusic.wav");
+GameMusic.loop = true;
+let CrashSound = new Audio("/sound/explosion.wav");
 
 StartingText.addEventListener("click", () => {
     StartingText.style.display = "none";
@@ -23,10 +26,14 @@ StartingText.addEventListener("click", () => {
 });
 
 async function ObstacleMaker(delay) {
+    let LocDelay = delay
     while (!GameOver) {
         let Rrow = (Math.floor(Math.random() * MaxLanes)) + 1;
         GenerateObstacle(Rrow);
-        await sleep(delay);
+        await sleep(LocDelay);
+        if (LocDelay > 300) {
+            LocDelay -= 5;  // speed increase
+        }
     }
 }
 
@@ -52,8 +59,18 @@ async function MoveObstacles(amount) {
     });*/
 }
 
+function CarMaker(carnum) {
+    if (carnum == 1 || carnum == 2 || carnum == 3) {
+        return new Car(`/img/auto${carnum}.png-3`);
+    }
+    return new Car(`/img/auto2.png-3`);
+}
+
 async function StartGame() {
+    let Choice = prompt("Choose car skin: 1-Yellow, 2-Gray, 3-Green: ")
+    PCar = CarMaker(Choice)
     DisplayCar(PCar.CurrLane);
+    GameMusic.play();
     document.addEventListener("keydown", () => {
         if (event.keyCode == 39) {
             if (!(PCar.CurrLane + 1 > MaxLanes)) {
@@ -99,6 +116,7 @@ function DeSpawnObjects() {
             if (Cimg.style.bottom[0] == "-") {
                 Column.removeChild(Cimg);
                 score++;
+                document.querySelector("#SCOut").innerHTML = score;
                 for (let index = 0; index < ObsList.length; index++) {
                     if (ObsList[index].id == Cimg.id) {
                         ObsList.splice(index,1);
@@ -111,7 +129,14 @@ function DeSpawnObjects() {
 }
 
 function GenerateObstacle(row) {
-    let NewObs = new Obstacle(`/img/akadaly.png-${row}-578-605`);
+    let NewObs = null;
+    let randNum = Math.floor(Math.random() * 2);
+    if(randNum == 1){
+        NewObs = new Obstacle(`/img/akadaly.png-${row}-578-605`);
+    }
+    else{
+        NewObs = new Obstacle(`/img/akadaly2.png-${row}-553-605`);
+    }
 
     let NewObsHTML = document.createElement("img");
 
@@ -142,7 +167,6 @@ setInterval(() => {
 
 const CollisionIntV = setInterval(() => {
     ScanForCollision();
-
 }, 75);
 
 function ScanForCollision(){
@@ -168,7 +192,13 @@ function ScanForCollision(){
 
 function EndGame() {
     console.log(score);
+    CrashSound.play();
+    GameMusic.pause();
     document.querySelector("#sc").innerHTML = score;
     document.querySelector("#endText").style.display = "block";
     GameOver = true;
 }
+
+document.querySelector("#endText").addEventListener("click", () => {
+    location.reload();
+});
