@@ -19,6 +19,15 @@ let score = 0;
 let GameMusic = new Audio("/music/GameMusic.wav");
 GameMusic.loop = true;
 let CrashSound = new Audio("/sound/explosion.wav");
+let highscore = document.querySelector('#HS_Value');
+let highscore_title = document.querySelectorAll('#HS_Title');
+
+highscore.innerHTML = localStorage.getItem('HighScore');
+
+if(highscore.innerHTML == null){
+    highscore.style.display = 'none';
+    highscore_title.style.display = 'none';
+}
 
 StartingText.addEventListener("click", () => {
     StartingText.style.display = "none";
@@ -117,6 +126,10 @@ function DeSpawnObjects() {
                 Column.removeChild(Cimg);
                 score++;
                 document.querySelector("#SCOut").innerHTML = score;
+                if (score > highscore.innerHTML){
+                    highscore.innerHTML = score;
+                    localStorage.setItem('HighScore', score);
+                }
                 for (let index = 0; index < ObsList.length; index++) {
                     if (ObsList[index].id == Cimg.id) {
                         ObsList.splice(index,1);
@@ -194,7 +207,7 @@ function EndGame() {
     console.log(score);
     CrashSound.play();
     GameMusic.pause();
-    document.querySelector("#sc").innerHTML = score;
+    // document.querySelector("#sc").innerHTML = score;
     document.querySelector("#endText").style.display = "block";
     GameOver = true;
 }

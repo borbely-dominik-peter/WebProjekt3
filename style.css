@@ -1,3 +1,10 @@
+* { 
+	margin: 0; 
+	padding: 0; 
+	box-sizing: border-box;
+    font-family: 'Pixelify Sans';          
+}
+
 #Main{
     height: 100%;
     box-sizing: content-box;
@@ -11,6 +18,7 @@
     margin: 0;
     position: relative;
     z-index: -1;
+    animation: scroll 0.8s linear infinite;
 }
 
 #C-1{
@@ -44,17 +52,22 @@
 
 #startText{
     font-size: 48px;
-    color: blue;
+    color: rgb(69, 69, 253);
     text-align: center !important;
     position: absolute;
     top: 43%;
     left: 42%;
+    text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 1px black;
 }
 
 #endText{
     font-size: 48px;
     color: red;
     text-align: center !important;
+    position: absolute;
+    top: 44%;
+    left: 44%;
+    text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 1px black;
 }
 
 #SCCont{
@@ -65,8 +78,18 @@
     height: 200px;
     text-align: center;
     background-color: darkgoldenrod;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    border: solid black 2px;
+    text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 1px black; 
 }
 
 #sc{
     text-align: center;
+}
+
+@keyframes scroll {
+    to {
+      background-position: 0 480px;
+    }
 }
