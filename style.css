@@ -50,3 +50,23 @@
     top: 43%;
     left: 42%;
 }
+
+#endText{
+    font-size: 48px;
+    color: red;
+    text-align: center !important;
+}
+
+#SCCont{
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    background-color: darkgoldenrod;
+}
+
+#sc{
+    text-align: center;
+}
