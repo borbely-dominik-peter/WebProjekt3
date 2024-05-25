@@ -174,7 +174,7 @@ const MovIntV = setInterval(() => {
     MoveObstacles(3);
 }, moveCycleSpeed);
 
-setInterval(() => {
+const DSPIntV = setInterval(() => {
     DeSpawnObjects();
 }, 50)
 
@@ -204,9 +204,11 @@ function ScanForCollision(){
 }
 
 function EndGame() {
+    clearInterval(DSPIntV); // desync of ending and box score possible, bugfix
     console.log(score);
     CrashSound.play();
     GameMusic.pause();
+    document.querySelector("#SCOut").innerHTML = score; // desync of ending and box score possible, bugfix
     document.querySelector("#SCEnd").innerHTML = score;
     document.querySelector("#endText").style.display = "block";
     GameOver = true;
