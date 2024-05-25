@@ -207,7 +207,7 @@ function EndGame() {
     console.log(score);
     CrashSound.play();
     GameMusic.pause();
-    // document.querySelector("#sc").innerHTML = score;
+    document.querySelector("#SCEnd").innerHTML = score;
     document.querySelector("#endText").style.display = "block";
     GameOver = true;
 }
