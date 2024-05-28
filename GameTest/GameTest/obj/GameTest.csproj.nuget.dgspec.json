@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hajba\\Documents\\code\\GameTest\\GameTest\\GameTest.csproj": {}
+    "C:\\Users\\hajba\\WebProjekt3\\GameTest\\GameTest\\GameTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hajba\\Documents\\code\\GameTest\\GameTest\\GameTest.csproj": {
+    "C:\\Users\\hajba\\WebProjekt3\\GameTest\\GameTest\\GameTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hajba\\Documents\\code\\GameTest\\GameTest\\GameTest.csproj",
+        "projectUniqueName": "C:\\Users\\hajba\\WebProjekt3\\GameTest\\GameTest\\GameTest.csproj",
         "projectName": "GameTest",
-        "projectPath": "C:\\Users\\hajba\\Documents\\code\\GameTest\\GameTest\\GameTest.csproj",
+        "projectPath": "C:\\Users\\hajba\\WebProjekt3\\GameTest\\GameTest\\GameTest.csproj",
         "packagesPath": "C:\\Users\\hajba\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hajba\\Documents\\code\\GameTest\\GameTest\\obj\\",
+        "outputPath": "C:\\Users\\hajba\\WebProjekt3\\GameTest\\GameTest\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,21 +49,33 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "MSTest.TestAdapter": {
-              "target": "Package",
-              "version": "[3.1.1, )"
-            },
-            "MSTest.TestFramework": {
-              "target": "Package",
-              "version": "[3.1.1, )"
-            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.8.0, )"
             },
+            "Selenium.Support": {
+              "target": "Package",
+              "version": "[4.21.0, )"
+            },
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.21.0, )"
+            },
+            "Selenium.WebDriver.ChromeDriver": {
+              "target": "Package",
+              "version": "[125.0.6422.7800, )"
+            },
             "coverlet.collector": {
               "target": "Package",
               "version": "[6.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.5.3, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.5.3, )"
             }
           },
           "imports": [

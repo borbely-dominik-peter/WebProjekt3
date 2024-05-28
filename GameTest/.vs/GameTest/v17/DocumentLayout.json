@@ -1,10 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\hajba\\Documents\\code\\GameTest\\",
+  "WorkspaceRootPath": "C:\\Users\\hajba\\WebProjekt3\\GameTest\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DA33E43B-29E3-46CD-AE63-A2C9408F26BC}|GameTest\\GameTest.csproj|c:\\users\\hajba\\documents\\code\\gametest\\gametest\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DA33E43B-29E3-46CD-AE63-A2C9408F26BC}|GameTest\\GameTest.csproj|solutionrelative:gametest\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8EBA72F8-2BE2-4CF7-94E6-F86E5C840703}|GameTest\\GameTest.csproj|c:\\users\\hajba\\webprojekt3\\gametest\\gametest\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8EBA72F8-2BE2-4CF7-94E6-F86E5C840703}|GameTest\\GameTest.csproj|solutionrelative:gametest\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -20,18 +20,14 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "UnitTest1.cs",
-              "DocumentMoniker": "C:\\Users\\hajba\\Documents\\code\\GameTest\\GameTest\\UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\hajba\\WebProjekt3\\GameTest\\GameTest\\UnitTest1.cs",
               "RelativeDocumentMoniker": "GameTest\\UnitTest1.cs",
-              "ToolTip": "C:\\Users\\hajba\\Documents\\code\\GameTest\\GameTest\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\hajba\\WebProjekt3\\GameTest\\GameTest\\UnitTest1.cs",
               "RelativeToolTip": "GameTest\\UnitTest1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-24T19:17:37.164Z",
+              "WhenOpened": "2024-05-28T14:57:05.003Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }

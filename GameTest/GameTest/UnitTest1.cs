@@ -1,11 +1,28 @@
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+
 namespace GameTest
 {
-    [TestClass]
-    public class UnitTest1
+    public class UnitTest1 : IDisposable
     {
-        [TestMethod]
-        public void TestMethod1()
+        private readonly ChromeDriver driver;
+
+        public UnitTest1()
         {
+            driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://127.0.0.1:5500/index.html");
+        }
+
+        public void Dispose()
+        {
+            driver.Quit();
+        }
+
+
+        [Fact]
+        public void Test1()
+        {
+
         }
     }
 }
