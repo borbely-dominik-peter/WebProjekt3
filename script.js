@@ -16,9 +16,9 @@ let GameOver = false;
 const moveCycleSpeed = 7;
 let GlobalID = 1;
 let score = 0;
-let GameMusic = new Audio("/music/GameMusic.wav");
+let GameMusic = new Audio("music/GameMusic.wav");
 GameMusic.loop = true;
-let CrashSound = new Audio("/sound/explosion.wav");
+let CrashSound = new Audio("sound/explosion.wav");
 let highscore = document.querySelector('#HS_Value');
 let highscore_title = document.querySelectorAll('#HS_Title');
 
@@ -70,9 +70,9 @@ async function MoveObstacles(amount) {
 
 function CarMaker(carnum) {
     if (carnum == 1 || carnum == 2 || carnum == 3) {
-        return new Car(`/img/auto${carnum}.png-3`);
+        return new Car(`img/auto${carnum}.png-3`);
     }
-    return new Car(`/img/auto2.png-3`);
+    return new Car(`img/auto2.png-3`);
 }
 
 async function StartGame() {
@@ -145,10 +145,10 @@ function GenerateObstacle(row) {
     let NewObs = null;
     let randNum = Math.floor(Math.random() * 2);
     if(randNum == 1){
-        NewObs = new Obstacle(`/img/akadaly.png-${row}-578-605`);
+        NewObs = new Obstacle(`img/akadaly.png-${row}-578-605`);
     }
     else{
-        NewObs = new Obstacle(`/img/akadaly2.png-${row}-553-605`);
+        NewObs = new Obstacle(`img/akadaly2.png-${row}-553-605`);
     }
 
     let NewObsHTML = document.createElement("img");
