@@ -90,5 +90,13 @@ namespace GameTest
             Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto2.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
         }
 
+        [Fact]
+        public void AutoZold()
+        {
+            StartGame();
+            AlertCar3();
+            Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto3.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
+        }
+
     }
 }
