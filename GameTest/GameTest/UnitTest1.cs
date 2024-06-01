@@ -10,7 +10,7 @@ namespace GameTest
         public UnitTest1()
         {
             driver = new ChromeDriver();
-            driver.Navigate().GoToUrl("http://127.0.0.1:5500/index.html");
+            driver.Navigate().GoToUrl("https://borbely-dominik-peter.github.io/WebProjekt3/");
         }
 
         public void Dispose()
@@ -26,8 +26,8 @@ namespace GameTest
             Assert.Equal("Start Game!", driver.FindElement(By.XPath("/html/body/div[2]/h1[1]")).Text);
             Assert.Equal("Score:", driver.FindElement(By.XPath("/html/body/div[1]/p[1]")).Text);
             Assert.Equal(5, driver.FindElements(By.XPath("/html/body/div[2]/table/tbody/tr/td")).Count);
-            // Assert.Equal($"url()", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[1]")).GetCssValue("background-image"));
-            // Assert.Equal($"url()", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[5]")).GetCssValue("background-image"));
+            Assert.Equal($"url(\"https://borbely-dominik-peter.github.io/WebProjekt3/img/balut.png\")", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[1]")).GetCssValue("background-image"));
+            Assert.Equal($"url(\"https://borbely-dominik-peter.github.io/WebProjekt3/img/ut.png\")", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[5]")).GetCssValue("background-image"));
         }
 
     }
