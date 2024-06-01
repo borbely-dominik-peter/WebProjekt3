@@ -82,5 +82,13 @@ namespace GameTest
             Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto1.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
         }
 
+        [Fact]
+        public void AutoSzurke()
+        {
+            StartGame();
+            AlertCar2();
+            Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto2.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
+        }
+
     }
 }
