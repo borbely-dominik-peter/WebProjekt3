@@ -1,5 +1,6 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace GameTest
 {
@@ -30,15 +31,37 @@ namespace GameTest
             Assert.Equal($"url(\"https://borbely-dominik-peter.github.io/WebProjekt3/img/ut.png\")", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[5]")).GetCssValue("background-image"));
         }
 
+
         private void StartGame()
         {
             driver.FindElement(By.Id("startText")).Click();
         }
-        
+
         private void AlertSkip()
         {
             var alert = driver.SwitchTo().Alert();
             alert.SendKeys("");
+            alert.Accept();
+        }
+
+        private void AlertCar1()
+        {
+            var alert = driver.SwitchTo().Alert();
+            alert.SendKeys("1");
+            alert.Accept();
+        }
+
+        private void AlertCar2()
+        {
+            var alert = driver.SwitchTo().Alert();
+            alert.SendKeys("2");
+            alert.Accept();
+        }
+
+        private void AlertCar3()
+        {
+            var alert = driver.SwitchTo().Alert();
+            alert.SendKeys("3");
             alert.Accept();
         }
 
@@ -50,7 +73,7 @@ namespace GameTest
             System.Threading.Thread.Sleep(1000);
             Assert.Equal("CAR", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("id"));
         }
-        
+
         [Fact]
         public void AutoBalSavValt()
         {
