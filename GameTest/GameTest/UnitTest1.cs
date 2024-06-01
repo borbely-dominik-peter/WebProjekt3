@@ -30,5 +30,16 @@ namespace GameTest
             Assert.Equal($"url(\"https://borbely-dominik-peter.github.io/WebProjekt3/img/ut.png\")", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[5]")).GetCssValue("background-image"));
         }
 
+        private void StartGame()
+        {
+            driver.FindElement(By.Id("startText")).Click();
+        }
+        
+        private void AlertSkip()
+        {
+            var alert = driver.SwitchTo().Alert();
+            alert.SendKeys("");
+            alert.Accept();
+        }
     }
 }
