@@ -41,5 +41,15 @@ namespace GameTest
             alert.SendKeys("");
             alert.Accept();
         }
+
+        [Fact]
+        public void AutoKozepsoSav()
+        {
+            StartGame();
+            AlertSkip();
+            System.Threading.Thread.Sleep(1000);
+            Assert.Equal("CAR", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("id"));
+        }
+        
     }
 }
