@@ -63,5 +63,16 @@ namespace GameTest
             Assert.Equal("CAR", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[1]/img[1]")).GetAttribute("id"));
         }
 
+        [Fact]
+        public void AutoJobbSavValt()
+        {
+            StartGame();
+            AlertSkip();
+            new Actions(driver).SendKeys(Keys.ArrowRight).Perform();
+            Assert.Equal("CAR", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[4]/img[1]")).GetAttribute("id"));
+            new Actions(driver).SendKeys(Keys.ArrowRight).Perform();
+            Assert.Equal("CAR", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[5]/img[1]")).GetAttribute("id"));
+        }
+
     }
 }
