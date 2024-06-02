@@ -140,6 +140,28 @@ namespace GameTest
             var obstacles = driver.FindElements(By.ClassName("obs"));
             Assert.True(obstacles.Count > 0);
         }
+
+        [Fact]
+        public void GettingPoint()
+        {
+            StartGame();
+            AlertSkip();
+
+            Thread.Sleep(2000);
+
+            var scoreElement = driver.FindElement(By.Id("SCOut"));
+            var score = int.Parse(scoreElement.Text);
+
+            if (driver.FindElement(By.XPath("//*[@id=\"endText\"]")).Displayed)
+            {
+                driver.FindElement(By.XPath("//*[@id=\"endText\"]")).Click();
+                GettingPoint();
+            }
+            else
+            {
+                Assert.True(score > 0);
+            }
+        }
         
     }
 }
