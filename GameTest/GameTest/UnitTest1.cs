@@ -162,6 +162,30 @@ namespace GameTest
                 Assert.True(score > 0);
             }
         }
-        
+
+        [Fact]
+        public void RetryGameOverScreen()
+        {
+            StartGame();
+            AlertSkip();
+
+            bool gameOverScreenDisplayed = false;
+            for (int i = 0; i < 100; i++)
+            {
+                var gameOverTextElements = driver.FindElements(By.Id("endText"));
+                if (gameOverTextElements.Count > 0 && gameOverTextElements[0].Displayed)
+                {
+                    gameOverScreenDisplayed = true;
+                    break;
+                }
+                Thread.Sleep(100);
+            }
+
+            var retryButton = driver.FindElement(By.Id("endText"));
+            retryButton.Click();
+
+            var startText = driver.FindElement(By.Id("startText")).Text;
+            Assert.Equal("Start Game!", startText);
+        }
     }
 }
