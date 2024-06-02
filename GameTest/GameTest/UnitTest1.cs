@@ -118,6 +118,28 @@ namespace GameTest
             AlertCar3();
             Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto3.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
         }
+        
+        [Fact]
+        public void BarrierGeneration()
+        {
+            StartGame();
+            AlertSkip();
 
+            bool barrierDisplayed = false;
+            for (int i = 0; i < 20; i++)
+            {
+                var barriers = driver.FindElements(By.ClassName("obs"));
+                if (barriers.Count > 0 && barriers[0].Displayed)
+                {
+                    barrierDisplayed = true;
+                    break;
+                }
+                Thread.Sleep(100);
+            }
+
+            var obstacles = driver.FindElements(By.ClassName("obs"));
+            Assert.True(obstacles.Count > 0);
+        }
+        
     }
 }
