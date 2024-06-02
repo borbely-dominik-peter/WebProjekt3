@@ -36,6 +36,7 @@ StartingText.addEventListener("click", () => {
 
 async function ObstacleMaker(delay) {
     let LocDelay = delay
+    await sleep(1000);  // delay of 1 second before starting the obstacle generation
     while (!GameOver) {
         let Rrow = (Math.floor(Math.random() * MaxLanes)) + 1;
         GenerateObstacle(Rrow);
