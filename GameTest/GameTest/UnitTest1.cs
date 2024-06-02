@@ -1,6 +1,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
 
 namespace GameTest
 {
@@ -21,7 +22,7 @@ namespace GameTest
 
 
         [Fact]
-        public void Megjelenes()
+        public void LoadedIn()
         {
             Assert.Equal("Car Game", driver.FindElement(By.XPath("/html/body/h1")).Text);
             Assert.Equal("Start Game!", driver.FindElement(By.XPath("/html/body/div[2]/h1[1]")).Text);
@@ -65,8 +66,9 @@ namespace GameTest
             alert.Accept();
         }
 
+
         [Fact]
-        public void AutoKozepsoSav()
+        public void CarMiddleLane()
         {
             StartGame();
             AlertSkip();
@@ -74,10 +76,21 @@ namespace GameTest
         }
 
         [Fact]
-        public void AutoBalSavValt()
+        public void CarLeftLaneSwitch()
         {
             StartGame();
             AlertSkip();
+            bool carDisplayed = false;
+            for (int i = 0; i < 100; i++)
+            {
+                var car = driver.FindElements(By.Id("CAR"));
+                if (car.Count > 0 && car[0].Displayed)
+                {
+                    carDisplayed = true;
+                    Thread.Sleep(100);
+                    break;
+                }
+            }
             new Actions(driver).SendKeys(Keys.ArrowLeft).Perform();
             Assert.Equal("CAR", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[2]/img[1]")).GetAttribute("id"));
             new Actions(driver).SendKeys(Keys.ArrowLeft).Perform();
@@ -85,10 +98,21 @@ namespace GameTest
         }
 
         [Fact]
-        public void AutoJobbSavValt()
+        public void CarRightLaneSwitch()
         {
             StartGame();
             AlertSkip();
+            bool carDisplayed = false;
+            for (int i = 0; i < 100; i++)
+            {
+                var car = driver.FindElements(By.Id("CAR"));
+                if (car.Count > 0 && car[0].Displayed)
+                {
+                    carDisplayed = true;
+                    Thread.Sleep(100);
+                    break;
+                }
+            }
             new Actions(driver).SendKeys(Keys.ArrowRight).Perform();
             Assert.Equal("CAR", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[4]/img[1]")).GetAttribute("id"));
             new Actions(driver).SendKeys(Keys.ArrowRight).Perform();
@@ -96,7 +120,7 @@ namespace GameTest
         }
 
         [Fact]
-        public void AutoSarga()
+        public void CarIsYellow()
         {
             StartGame();
             AlertCar1();
@@ -104,7 +128,7 @@ namespace GameTest
         }
 
         [Fact]
-        public void AutoSzurke()
+        public void CarIsGray()
         {
             StartGame();
             AlertCar2();
@@ -112,13 +136,13 @@ namespace GameTest
         }
 
         [Fact]
-        public void AutoZold()
+        public void CarIsGreen()
         {
             StartGame();
             AlertCar3();
             Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto3.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
         }
-        
+
         [Fact]
         public void BarrierGeneration()
         {
@@ -215,5 +239,42 @@ namespace GameTest
             Assert.Equal(highscore1, highscore2);
         }
 
+        [Fact]
+        public void HighScoreCheckIfValid()
+        {
+            StartGame();
+            AlertSkip();
+            Thread.Sleep(2000);
+
+            var score = int.Parse(driver.FindElement(By.Id("SCOut")).Text);
+
+            if (driver.FindElement(By.XPath("//*[@id=\"endText\"]")).Displayed)
+            {
+                driver.FindElement(By.XPath("//*[@id=\"endText\"]")).Click();
+                GettingPoint();
+            }
+            else
+            {
+                bool gameOverScreenDisplayed = false;
+                for (int i = 0; i < 100; i++)
+                {
+                    var gameOverTextElements = driver.FindElements(By.Id("endText"));
+                    if (gameOverTextElements.Count > 0 && gameOverTextElements[0].Displayed)
+                    {
+                        gameOverScreenDisplayed = true;
+                        break;
+                    }
+                    Thread.Sleep(100);
+                }
+                var highscore = int.Parse(driver.FindElement(By.Id("HS_Value")).Text);
+                var retryButton = driver.FindElement(By.Id("endText"));
+                retryButton.Click();
+
+                StartGame();
+                AlertSkip();
+                score = int.Parse(driver.FindElement(By.Id("SCOut")).Text);
+                Assert.True(score < highscore);
+            }
+        }
     }
 }
