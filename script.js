@@ -144,7 +144,6 @@ function DeSpawnObjects() {
 
 function GenerateObstacle(row) {
     let NewObs = null;
-    let randNum = Math.floor(Math.random() * 2);
     NewObs = new Obstacle(`img/akadaly.png-${row}-578-605`);
     let NewObsHTML = document.createElement("img");
 
