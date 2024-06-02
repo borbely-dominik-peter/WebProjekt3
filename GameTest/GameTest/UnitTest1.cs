@@ -187,5 +187,33 @@ namespace GameTest
             var startText = driver.FindElement(By.Id("startText")).Text;
             Assert.Equal("Start Game!", startText);
         }
+
+        [Fact]
+        public void HighScoreCheckIfStored()
+        {
+            StartGame();
+            AlertSkip();
+
+            var highscore1 = driver.FindElement(By.Id("HS_Value")).Text;
+            bool gameOverScreenDisplayed = false;
+            for (int i = 0; i < 100; i++)
+            {
+                var gameOverTextElements = driver.FindElements(By.Id("endText"));
+                if (gameOverTextElements.Count > 0 && gameOverTextElements[0].Displayed)
+                {
+                    gameOverScreenDisplayed = true;
+                    highscore1 = driver.FindElement(By.Id("HS_Value")).Text;
+                    break;
+                }
+                Thread.Sleep(100);
+            }
+            var retryButton = driver.FindElement(By.Id("endText"));
+            retryButton.Click();
+
+            var highscore2 = driver.FindElement(By.Id("HS_Value")).Text;
+
+            Assert.Equal(highscore1, highscore2);
+        }
+
     }
 }
