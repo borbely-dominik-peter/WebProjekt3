@@ -38,40 +38,18 @@ namespace GameTest
             driver.FindElement(By.Id("startText")).Click();
         }
 
-        private void AlertSkip()
+        private void AlertCar(string car)
         {
             var alert = driver.SwitchTo().Alert();
-            alert.SendKeys("");
+            alert.SendKeys(car);
             alert.Accept();
         }
-
-        private void AlertCar1()
-        {
-            var alert = driver.SwitchTo().Alert();
-            alert.SendKeys("1");
-            alert.Accept();
-        }
-
-        private void AlertCar2()
-        {
-            var alert = driver.SwitchTo().Alert();
-            alert.SendKeys("2");
-            alert.Accept();
-        }
-
-        private void AlertCar3()
-        {
-            var alert = driver.SwitchTo().Alert();
-            alert.SendKeys("3");
-            alert.Accept();
-        }
-
 
         [Fact]
         public void CarMiddleLane()
         {
             StartGame();
-            AlertSkip();
+            AlertCar("");
             Assert.Equal("CAR", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("id"));
         }
 
@@ -79,14 +57,12 @@ namespace GameTest
         public void CarLeftLaneSwitch()
         {
             StartGame();
-            AlertSkip();
-            bool carDisplayed = false;
+            AlertCar("");
             for (int i = 0; i < 100; i++)
             {
                 var car = driver.FindElements(By.Id("CAR"));
                 if (car.Count > 0 && car[0].Displayed)
                 {
-                    carDisplayed = true;
                     Thread.Sleep(100);
                     break;
                 }
@@ -101,14 +77,12 @@ namespace GameTest
         public void CarRightLaneSwitch()
         {
             StartGame();
-            AlertSkip();
-            bool carDisplayed = false;
+            AlertCar("");
             for (int i = 0; i < 100; i++)
             {
                 var car = driver.FindElements(By.Id("CAR"));
                 if (car.Count > 0 && car[0].Displayed)
                 {
-                    carDisplayed = true;
                     Thread.Sleep(100);
                     break;
                 }
@@ -123,7 +97,7 @@ namespace GameTest
         public void CarIsYellow()
         {
             StartGame();
-            AlertCar1();
+            AlertCar("1");
             Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto1.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
         }
 
@@ -131,7 +105,7 @@ namespace GameTest
         public void CarIsGray()
         {
             StartGame();
-            AlertCar2();
+            AlertCar("2");
             Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto2.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
         }
 
@@ -139,7 +113,7 @@ namespace GameTest
         public void CarIsGreen()
         {
             StartGame();
-            AlertCar3();
+            AlertCar("3");
             Assert.Equal("https://borbely-dominik-peter.github.io/WebProjekt3/img/auto3.png", driver.FindElement(By.XPath("/html/body/div[2]/table/tbody/tr/td[3]/img[1]")).GetAttribute("src"));
         }
 
@@ -147,15 +121,12 @@ namespace GameTest
         public void BarrierGeneration()
         {
             StartGame();
-            AlertSkip();
-
-            bool barrierDisplayed = false;
+            AlertCar("");
             for (int i = 0; i < 20; i++)
             {
                 var barriers = driver.FindElements(By.ClassName("obs"));
                 if (barriers.Count > 0 && barriers[0].Displayed)
                 {
-                    barrierDisplayed = true;
                     break;
                 }
                 Thread.Sleep(100);
@@ -169,9 +140,9 @@ namespace GameTest
         public void GettingPoint()
         {
             StartGame();
-            AlertSkip();
+            AlertCar("");
 
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
             var scoreElement = driver.FindElement(By.Id("SCOut"));
             var score = int.Parse(scoreElement.Text);
@@ -191,15 +162,13 @@ namespace GameTest
         public void RetryGameOverScreen()
         {
             StartGame();
-            AlertSkip();
+            AlertCar("");
 
-            bool gameOverScreenDisplayed = false;
             for (int i = 0; i < 100; i++)
             {
                 var gameOverTextElements = driver.FindElements(By.Id("endText"));
                 if (gameOverTextElements.Count > 0 && gameOverTextElements[0].Displayed)
                 {
-                    gameOverScreenDisplayed = true;
                     break;
                 }
                 Thread.Sleep(100);
@@ -216,16 +185,14 @@ namespace GameTest
         public void HighScoreCheckIfStored()
         {
             StartGame();
-            AlertSkip();
+            AlertCar("");
 
             var highscore1 = driver.FindElement(By.Id("HS_Value")).Text;
-            bool gameOverScreenDisplayed = false;
             for (int i = 0; i < 100; i++)
             {
                 var gameOverTextElements = driver.FindElements(By.Id("endText"));
                 if (gameOverTextElements.Count > 0 && gameOverTextElements[0].Displayed)
                 {
-                    gameOverScreenDisplayed = true;
                     highscore1 = driver.FindElement(By.Id("HS_Value")).Text;
                     break;
                 }
@@ -243,7 +210,7 @@ namespace GameTest
         public void HighScoreCheckIfValid()
         {
             StartGame();
-            AlertSkip();
+            AlertCar("");
             Thread.Sleep(2000);
 
             var score = int.Parse(driver.FindElement(By.Id("SCOut")).Text);
@@ -255,13 +222,11 @@ namespace GameTest
             }
             else
             {
-                bool gameOverScreenDisplayed = false;
                 for (int i = 0; i < 100; i++)
                 {
                     var gameOverTextElements = driver.FindElements(By.Id("endText"));
                     if (gameOverTextElements.Count > 0 && gameOverTextElements[0].Displayed)
                     {
-                        gameOverScreenDisplayed = true;
                         break;
                     }
                     Thread.Sleep(100);
@@ -271,7 +236,7 @@ namespace GameTest
                 retryButton.Click();
 
                 StartGame();
-                AlertSkip();
+                AlertCar("");
                 score = int.Parse(driver.FindElement(By.Id("SCOut")).Text);
                 Assert.True(score < highscore);
             }
